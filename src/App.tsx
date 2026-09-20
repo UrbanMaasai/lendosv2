@@ -20,6 +20,11 @@ import Borrower360View from './pages/Borrower360View';
 import MPesaMonitor from './pages/MPesaMonitor';
 import CollectionsTimeline from './pages/CollectionsTimeline';
 import OverrideTracker from './pages/OverrideTracker';
+import RegulatoryReporting from './pages/RegulatoryReporting';
+import ComplaintsManagement from './pages/ComplaintsManagement';
+import CommunicationTemplates from './pages/CommunicationTemplates';
+import ProductChangeApproval from './pages/ProductChangeApproval';
+import BulkLoanOperations from './pages/BulkLoanOperations';
 import { seedPlatform } from './services/seedData';
 
 function App() {
@@ -40,14 +45,19 @@ function App() {
           <Route index element={<Dashboard />} />
           <Route path="tenants" element={<Tenants />} />
           <Route path="products" element={<Products />} />
+          <Route path="products/changes" element={<ProductChangeApproval />} />
           <Route path="borrowers" element={<Borrowers />} />
           <Route path="borrowers/360" element={<Borrower360View />} />
           <Route path="loans" element={<Loans />} />
+          <Route path="loans/bulk" element={<BulkLoanOperations />} />
           <Route path="collections" element={<Collections />} />
           <Route path="collections/timeline" element={<CollectionsTimeline />} />
+          <Route path="collections/templates" element={<CommunicationTemplates />} />
           <Route path="compliance" element={<Compliance />} />
           <Route path="compliance/audit" element={<AuditLogExplorer />} />
           <Route path="compliance/overrides" element={<OverrideTracker />} />
+          <Route path="compliance/regulatory" element={<RegulatoryReporting />} />
+          <Route path="compliance/complaints" element={<ComplaintsManagement />} />
           <Route path="reports" element={<Reports />} />
           <Route path="integrations" element={<Integrations />} />
           <Route path="integrations/mpesa" element={<MPesaMonitor />} />

@@ -14,17 +14,24 @@ import TenantContextSwitcher from './TenantContextSwitcher';
 const navItems = [
   { path: '/app', icon: LayoutDashboard, label: 'Dashboard', end: true },
   { path: '/app/tenants', icon: Building2, label: 'Tenants' },
-  { path: '/app/products', icon: Package, label: 'Products' },
+  { path: '/app/products', icon: Package, label: 'Products', children: [
+    { path: '/app/products/changes', label: 'Change Approvals' }
+  ]},
   { path: '/app/borrowers', icon: Users, label: 'Borrowers', children: [
     { path: '/app/borrowers/360', label: '360° View' }
   ]},
-  { path: '/app/loans', icon: FileText, label: 'Loans' },
+  { path: '/app/loans', icon: FileText, label: 'Loans', children: [
+    { path: '/app/loans/bulk', label: 'Bulk Operations' }
+  ]},
   { path: '/app/collections', icon: PhoneCall, label: 'Collections', children: [
-    { path: '/app/collections/timeline', label: 'Timeline' }
+    { path: '/app/collections/timeline', label: 'Timeline' },
+    { path: '/app/collections/templates', label: 'Templates' }
   ]},
   { path: '/app/compliance', icon: Shield, label: 'Compliance', children: [
     { path: '/app/compliance/audit', label: 'Audit Logs' },
-    { path: '/app/compliance/overrides', label: 'Overrides' }
+    { path: '/app/compliance/overrides', label: 'Overrides' },
+    { path: '/app/compliance/regulatory', label: 'Regulatory Reports' },
+    { path: '/app/compliance/complaints', label: 'Complaints' }
   ]},
   { path: '/app/reports', icon: BarChart3, label: 'Reports' },
   { path: '/app/integrations', icon: Plug, label: 'Integrations', children: [
