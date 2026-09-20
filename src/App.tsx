@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 import Landing from './pages/Landing';
 import Pricing from './pages/Pricing';
 import DashboardLayout from './components/DashboardLayout';
@@ -14,7 +14,7 @@ import Integrations from './pages/Integrations';
 
 function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/pricing" element={<Pricing />} />
@@ -30,7 +30,7 @@ function App() {
           <Route path="integrations" element={<Integrations />} />
         </Route>
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 

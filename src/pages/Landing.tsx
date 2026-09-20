@@ -1,5 +1,4 @@
 import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import {
   Shield, Zap, Building2, Globe, CheckCircle2, ArrowRight,
   Smartphone, BarChart3, Users, Lock, Clock, Award, Package, PhoneCall
@@ -66,11 +65,7 @@ export default function Landing() {
       <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="max-w-4xl mx-auto text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-            >
+            <div className="animate-fade-in">
               <div className="inline-flex items-center gap-2 bg-primary-50 text-primary-700 px-4 py-1.5 rounded-full text-sm font-medium mb-6">
                 <span className="w-2 h-2 bg-primary-500 rounded-full animate-pulse-gentle"></span>
                 Now serving licensed DCPs in Kenya
@@ -96,23 +91,18 @@ export default function Landing() {
                   View Pricing
                 </button>
               </div>
-            </motion.div>
+            </div>
           </div>
 
           {/* Stats */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto"
-          >
+          <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto animate-fade-in-up">
             {stats.map((stat) => (
               <div key={stat.label} className="text-center">
                 <p className="text-3xl font-bold text-gray-900">{stat.value}</p>
                 <p className="text-sm text-gray-500 mt-1">{stat.label}</p>
               </div>
             ))}
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -127,19 +117,17 @@ export default function Landing() {
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {features.map((feature, i) => (
-              <motion.div
+              <div
                 key={feature.title}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: i * 0.1 }}
-                className="bg-white rounded-xl p-6 border border-gray-100 hover:border-primary-200 hover:shadow-lg transition-all"
+                className="bg-white rounded-xl p-6 border border-gray-100 hover:border-primary-200 hover:shadow-lg transition-all animate-fade-in-up"
+                style={{ animationDelay: `${i * 100}ms` }}
               >
                 <div className="w-10 h-10 bg-primary-50 rounded-lg flex items-center justify-center mb-4">
                   <feature.icon size={20} className="text-primary-600" />
                 </div>
                 <h3 className="font-semibold text-gray-900 mb-2">{feature.title}</h3>
                 <p className="text-sm text-gray-600 leading-relaxed">{feature.desc}</p>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
