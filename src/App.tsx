@@ -25,6 +25,11 @@ import ComplaintsManagement from './pages/ComplaintsManagement';
 import CommunicationTemplates from './pages/CommunicationTemplates';
 import ProductChangeApproval from './pages/ProductChangeApproval';
 import BulkLoanOperations from './pages/BulkLoanOperations';
+import CreditScoreSimulator from './pages/CreditScoreSimulator';
+import LoanCalculator from './pages/LoanCalculator';
+import FraudDetectionDashboard from './pages/FraudDetectionDashboard';
+import PortfolioAnalytics from './pages/PortfolioAnalytics';
+import WebhookManagement from './pages/WebhookManagement';
 import { seedPlatform } from './services/seedData';
 
 function App() {
@@ -58,9 +63,15 @@ function App() {
           <Route path="compliance/overrides" element={<OverrideTracker />} />
           <Route path="compliance/regulatory" element={<RegulatoryReporting />} />
           <Route path="compliance/complaints" element={<ComplaintsManagement />} />
+          <Route path="compliance/fraud" element={<FraudDetectionDashboard />} />
           <Route path="reports" element={<Reports />} />
+          <Route path="reports/analytics" element={<PortfolioAnalytics />} />
           <Route path="integrations" element={<Integrations />} />
           <Route path="integrations/mpesa" element={<MPesaMonitor />} />
+          <Route path="integrations/webhooks" element={<WebhookManagement />} />
+          <Route path="tools" element={<div />} />
+          <Route path="tools/credit-score" element={<CreditScoreSimulator />} />
+          <Route path="tools/loan-calculator" element={<LoanCalculator />} />
         </Route>
       </Routes>
     </HashRouter>

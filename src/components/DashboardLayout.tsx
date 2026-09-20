@@ -3,7 +3,8 @@ import { Outlet, NavLink, useNavigate, useLocation } from 'react-router-dom';
 import {
   LayoutDashboard, Building2, Package, Users, FileText,
   PhoneCall, Shield, BarChart3, Plug, Menu, X, LogOut,
-  Bell, Search, ChevronDown, ChevronRight, CheckCircle2, AlertTriangle, Book
+  Bell, Search, ChevronDown, ChevronRight, CheckCircle2, AlertTriangle, Book,
+  Wrench, TrendingUp, AlertOctagon, Webhook
 } from 'lucide-react';
 import NotificationCenter from './NotificationCenter';
 import GlobalSearch from './GlobalSearch';
@@ -31,11 +32,19 @@ const navItems = [
     { path: '/app/compliance/audit', label: 'Audit Logs' },
     { path: '/app/compliance/overrides', label: 'Overrides' },
     { path: '/app/compliance/regulatory', label: 'Regulatory Reports' },
-    { path: '/app/compliance/complaints', label: 'Complaints' }
+    { path: '/app/compliance/complaints', label: 'Complaints' },
+    { path: '/app/compliance/fraud', label: 'Fraud Detection' }
   ]},
-  { path: '/app/reports', icon: BarChart3, label: 'Reports' },
+  { path: '/app/reports', icon: BarChart3, label: 'Reports', children: [
+    { path: '/app/reports/analytics', label: 'Portfolio Analytics' }
+  ]},
   { path: '/app/integrations', icon: Plug, label: 'Integrations', children: [
-    { path: '/app/integrations/mpesa', label: 'M-Pesa Monitor' }
+    { path: '/app/integrations/mpesa', label: 'M-Pesa Monitor' },
+    { path: '/app/integrations/webhooks', label: 'Webhooks' }
+  ]},
+  { path: '/app/tools', icon: Wrench, label: 'Tools', children: [
+    { path: '/app/tools/credit-score', label: 'Credit Score Simulator' },
+    { path: '/app/tools/loan-calculator', label: 'Loan Calculator' }
   ]},
 ];
 
