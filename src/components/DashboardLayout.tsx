@@ -5,6 +5,10 @@ import {
   PhoneCall, Shield, BarChart3, Plug, Menu, X, LogOut,
   Bell, Search, ChevronDown, ChevronRight, CheckCircle2, AlertTriangle
 } from 'lucide-react';
+import NotificationCenter from './NotificationCenter';
+import GlobalSearch from './GlobalSearch';
+import TaskManager from './TaskManager';
+import ThemeToggle from './ThemeToggle';
 
 const navItems = [
   { path: '/app', icon: LayoutDashboard, label: 'Dashboard', end: true },
@@ -20,7 +24,6 @@ const navItems = [
 
 export default function DashboardLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [notifOpen, setNotifOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -32,13 +35,6 @@ export default function DashboardLayout() {
       label: segment.charAt(0).toUpperCase() + segment.slice(1),
       path: '/' + pathSegments.slice(0, index + 1).join('/'),
     })),
-  ];
-
-  const notifications = [
-    { id: 1, type: 'success', message: 'Loan LN-2026-0847 disbursed successfully', time: '2 min ago' },
-    { id: 2, type: 'warning', message: 'PAR 30 approaching threshold (4.2%)', time: '15 min ago' },
-    { id: 3, type: 'info', message: 'New tenant Boda Finance onboarded', time: '1 hour ago' },
-    { id: 4, type: 'success', message: 'Compliance audit completed - all checks passed', time: '2 hours ago' },
   ];
 
   return (
@@ -120,6 +116,9 @@ export default function DashboardLayout() {
 
       {/* Main content */}
       <div className="flex-1 flex flex-col min-w-0">
+        {/* Global Search Modal */}
+        <GlobalSearch />
+
         {/* Top bar */}
         <header className="bg-white border-b border-gray-200">
           <div className="h-16 flex items-center justify-between px-4 lg:px-6">
@@ -127,61 +126,23 @@ export default function DashboardLayout() {
               <button onClick={() => setSidebarOpen(true)} className="lg:hidden text-gray-500">
                 <Menu size={20} />
               </button>
-              <div className="hidden sm:flex items-center gap-2 bg-gray-50 rounded-lg px-3 py-2 w-64">
+              <button 
+                onClick={() => {
+                  // Trigger global search via keyboard shortcut simulation
+                  const event = new KeyboardEvent('keydown', { key: 'k', metaKey: true });
+                  window.dispatchEvent(event);
+                }}
+                className="hidden sm:flex items-center gap-2 bg-gray-50 rounded-lg px-3 py-2 w-64 hover:bg-gray-100 transition-colors cursor-pointer"
+              >
                 <Search size={16} className="text-gray-400" />
-                <input
-                  type="text"
-                  placeholder="Search loans, borrowers, tenants..."
-                  className="bg-transparent text-sm outline-none w-full text-gray-700 placeholder-gray-400"
-                />
-              </div>
+                <span className="text-sm text-gray-400 flex-1 text-left">Search...</span>
+                <kbd className="text-xs text-gray-400 bg-white px-1.5 py-0.5 rounded border border-gray-200">⌘K</kbd>
+              </button>
             </div>
 
-            <div className="flex items-center gap-3">
-              <div className="relative">
-                <button 
-                  onClick={() => setNotifOpen(!notifOpen)}
-                  className="relative p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-50 rounded-lg"
-                >
-                  <Bell size={18} />
-                  <span className="absolute top-1 right-1 w-2 h-2 bg-danger-500 rounded-full animate-pulse"></span>
-                </button>
-                
-                {/* Notification Panel */}
-                {notifOpen && (
-                  <>
-                    <div className="fixed inset-0 z-40" onClick={() => setNotifOpen(false)}></div>
-                    <div className="absolute right-0 top-full mt-2 w-80 bg-white rounded-xl shadow-lg border border-gray-200 z-50 overflow-hidden">
-                      <div className="p-4 border-b border-gray-100 flex items-center justify-between">
-                        <h3 className="font-semibold text-gray-900">Notifications</h3>
-                        <span className="text-xs bg-primary-50 text-primary-700 px-2 py-0.5 rounded-full">4 new</span>
-                      </div>
-                      <div className="max-h-80 overflow-y-auto scrollbar-thin">
-                        {notifications.map((notif) => (
-                          <div key={notif.id} className="p-4 border-b border-gray-50 hover:bg-gray-50 cursor-pointer">
-                            <div className="flex items-start gap-3">
-                              <div className={`w-2 h-2 rounded-full mt-2 flex-shrink-0 ${
-                                notif.type === 'success' ? 'bg-accent-500' :
-                                notif.type === 'warning' ? 'bg-warning-500' :
-                                'bg-primary-500'
-                              }`}></div>
-                              <div className="flex-1 min-w-0">
-                                <p className="text-sm text-gray-900">{notif.message}</p>
-                                <p className="text-xs text-gray-500 mt-1">{notif.time}</p>
-                              </div>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                      <div className="p-3 border-t border-gray-100">
-                        <button className="w-full text-sm text-primary-600 hover:text-primary-700 font-medium">
-                          View all notifications
-                        </button>
-                      </div>
-                    </div>
-                  </>
-                )}
-              </div>
+            <div className="flex items-center gap-2">
+              <ThemeToggle />
+              <NotificationCenter />
               <div className="flex items-center gap-2 cursor-pointer">
                 <div className="w-8 h-8 bg-gradient-to-br from-accent-400 to-accent-600 rounded-full flex items-center justify-center">
                   <span className="text-white text-xs font-bold">PA</span>

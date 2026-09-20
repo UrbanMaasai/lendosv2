@@ -6,6 +6,8 @@ import {
 } from 'lucide-react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, PieChart, Pie, Cell, LineChart, Line } from 'recharts';
 import { dataLayer } from '../services/dataLayer';
+import TaskManager from '../components/TaskManager';
+import ComplianceScorecard from '../components/ComplianceScorecard';
 
 const disbursementData = [
   { month: 'Jul', amount: 12500000 },
@@ -322,6 +324,12 @@ export default function Dashboard() {
           ))}
         </div>
       </div>
+
+      {/* Compliance Scorecard */}
+      <ComplianceScorecard />
+
+      {/* Task Manager */}
+      <TaskManager />
     </div>
   );
 }
