@@ -8,6 +8,11 @@ import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 import { dataLayer } from '../services/dataLayer';
 import TaskManager from '../components/TaskManager';
 import ComplianceScorecard from '../components/ComplianceScorecard';
+import DecisionEngineVisualizer from '../components/DecisionEngineVisualizer';
+import SimulationControlPanel from '../components/SimulationControlPanel';
+import LoanRestructuring from '../components/LoanRestructuring';
+import ConsentManagement from '../components/ConsentManagement';
+import TenantOnboardingWizard from '../components/TenantOnboardingWizard';
 
 const disbursementData = [
   { month: 'Jul', amount: 12500000 },
@@ -327,6 +332,21 @@ export default function Dashboard() {
 
       {/* Compliance Scorecard */}
       <ComplianceScorecard />
+
+      {/* Decision Engine Visualizer */}
+      <DecisionEngineVisualizer />
+
+      {/* Simulation Control Panel */}
+      <SimulationControlPanel />
+
+      {/* Loan Restructuring */}
+      <LoanRestructuring />
+
+      {/* Consent Management */}
+      <ConsentManagement />
+
+      {/* Tenant Onboarding Wizard */}
+      <TenantOnboardingWizard />
 
       {/* Task Manager */}
       <TaskManager />

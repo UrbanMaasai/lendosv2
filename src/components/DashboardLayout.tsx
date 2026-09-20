@@ -9,6 +9,7 @@ import NotificationCenter from './NotificationCenter';
 import GlobalSearch from './GlobalSearch';
 import TaskManager from './TaskManager';
 import ThemeToggle from './ThemeToggle';
+import TenantContextSwitcher from './TenantContextSwitcher';
 
 const navItems = [
   { path: '/app', icon: LayoutDashboard, label: 'Dashboard', end: true },
@@ -146,6 +147,10 @@ export default function DashboardLayout() {
                 <span className="text-sm text-gray-400 flex-1 text-left">Search...</span>
                 <kbd className="text-xs text-gray-400 bg-white px-1.5 py-0.5 rounded border border-gray-200">⌘K</kbd>
               </button>
+              <TenantContextSwitcher onTenantChange={(tenantId) => {
+                // Handle tenant context change
+                console.log('Tenant context changed:', tenantId);
+              }} />
             </div>
 
             <div className="flex items-center gap-2">
