@@ -13,6 +13,8 @@ import Compliance from './pages/Compliance';
 import Reports from './pages/Reports';
 import Integrations from './pages/Integrations';
 import BorrowerPortal from './pages/BorrowerPortal';
+import MobileBorrowerApp from './pages/MobileBorrowerApp';
+import APIDocumentation from './pages/APIDocumentation';
 import { seedPlatform } from './services/seedData';
 
 function App() {
@@ -27,6 +29,8 @@ function App() {
         <Route path="/" element={<Landing />} />
         <Route path="/pricing" element={<Pricing />} />
         <Route path="/borrower" element={<BorrowerPortal />} />
+        <Route path="/mobile" element={<MobileBorrowerApp />} />
+        <Route path="/docs" element={<APIDocumentation />} />
         <Route path="/app" element={<DashboardLayout />}>
           <Route index element={<Dashboard />} />
           <Route path="tenants" element={<Tenants />} />

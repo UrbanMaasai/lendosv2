@@ -3,7 +3,7 @@ import { Outlet, NavLink, useNavigate, useLocation } from 'react-router-dom';
 import {
   LayoutDashboard, Building2, Package, Users, FileText,
   PhoneCall, Shield, BarChart3, Plug, Menu, X, LogOut,
-  Bell, Search, ChevronDown, ChevronRight, CheckCircle2, AlertTriangle
+  Bell, Search, ChevronDown, ChevronRight, CheckCircle2, AlertTriangle, Book
 } from 'lucide-react';
 import NotificationCenter from './NotificationCenter';
 import GlobalSearch from './GlobalSearch';
@@ -96,11 +96,19 @@ export default function DashboardLayout() {
 
             {/* Borrower Portal Link */}
             <button
-              onClick={() => navigate('/borrower')}
+              onClick={() => navigate('/mobile')}
               className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-primary-600 hover:bg-primary-50 w-full"
             >
               <Users size={18} />
-              Test Borrower Journey
+              Mobile App Demo
+            </button>
+
+            <button
+              onClick={() => navigate('/docs')}
+              className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-primary-600 hover:bg-primary-50 w-full"
+            >
+              <Book size={18} />
+              API Documentation
             </button>
 
             <button
