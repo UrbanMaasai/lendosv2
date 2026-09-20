@@ -85,10 +85,16 @@ export default function Landing() {
                   Explore Platform <ArrowRight size={18} />
                 </button>
                 <button
-                  onClick={() => navigate('/pricing')}
+                  onClick={() => navigate('/borrower')}
                   className="w-full sm:w-auto border border-gray-200 text-gray-700 px-8 py-3.5 rounded-xl text-base font-semibold hover:bg-gray-50 transition-colors"
                 >
-                  View Pricing
+                  Test Borrower Journey
+                </button>
+                <button
+                  onClick={() => navigate('/pricing')}
+                  className="w-full sm:w-auto text-primary-600 hover:text-primary-700 text-sm font-medium"
+                >
+                  View Pricing →
                 </button>
               </div>
             </div>

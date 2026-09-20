@@ -1,7 +1,23 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FileText, Search, Filter, Download, Eye, AlertTriangle, CheckCircle2, Clock, DollarSign, TrendingUp, Activity, Zap } from 'lucide-react';
+import { dataLayer, Loan } from '../services/dataLayer';
 
-const loans = [
+interface LoanDisplay {
+  id: string;
+  borrower: string;
+  product: string;
+  principal: number;
+  interest: number;
+  totalDue: number;
+  paid: number;
+  remaining: number;
+  status: string;
+  dueDate: string;
+  disbursed: string;
+  inDuplum: boolean;
+}
+
+const seedLoans: LoanDisplay[] = [
   { id: 'LN-2026-0847', borrower: 'James Mwangi', product: 'Salary Advance', principal: 15000, interest: 1350, totalDue: 16350, paid: 8175, remaining: 8175, status: 'Active', dueDate: '2026-07-15', disbursed: '2026-06-15', inDuplum: false },
   { id: 'LN-2026-0846', borrower: 'Grace Wanjiku', product: 'Micro Personal', principal: 8500, interest: 1020, totalDue: 9520, paid: 0, remaining: 9520, status: 'Pending Review', dueDate: '2026-07-20', disbursed: '-', inDuplum: false },
   { id: 'LN-2026-0845', borrower: 'Peter Ochieng', product: 'Salary Advance', principal: 25000, interest: 2250, totalDue: 27250, paid: 27250, remaining: 0, status: 'Repaid', dueDate: '2026-06-30', disbursed: '2026-05-30', inDuplum: false },
@@ -14,8 +30,35 @@ const loans = [
 export default function Loans() {
   const [search, setSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
+  const [allLoans, setAllLoans] = useState<LoanDisplay[]>(seedLoans);
 
-  const filtered = loans.filter(l => {
+  useEffect(() => {
+    // Load loans from data layer (super admin sees all tenants)
+    const dbLoans = dataLayer.getLoans();
+    const mapped: LoanDisplay[] = dbLoans.map((l: Loan) => {
+      const borrower = dataLayer.getBorrower(l.borrowerId);
+      const product = dataLayer.getProduct(l.productId);
+      return {
+        id: l.id,
+        borrower: borrower?.name || 'Unknown',
+        product: product?.name || 'Unknown',
+        principal: l.principal,
+        interest: l.interest,
+        totalDue: l.totalDue,
+        paid: l.paid,
+        remaining: l.remaining,
+        status: l.status,
+        dueDate: l.dueDate,
+        disbursed: l.disbursedAt?.split('T')[0] || '-',
+        inDuplum: l.inDuplumReached,
+      };
+    });
+    if (mapped.length > 0) {
+      setAllLoans([...mapped, ...seedLoans]);
+    }
+  }, []);
+
+  const filtered = allLoans.filter((l: LoanDisplay) => {
     const matchesSearch = l.borrower.toLowerCase().includes(search.toLowerCase()) || l.id.toLowerCase().includes(search.toLowerCase());
     const matchesStatus = statusFilter === 'all' || l.status.toLowerCase().replace('-', ' ').includes(statusFilter);
     return matchesSearch && matchesStatus;

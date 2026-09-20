@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   TrendingUp, TrendingDown, Users, FileText, AlertTriangle,
   DollarSign, Clock, CheckCircle2, ArrowUpRight, Activity,
   Zap, Shield, PhoneCall, Bell
 } from 'lucide-react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, PieChart, Pie, Cell, LineChart, Line } from 'recharts';
+import { dataLayer } from '../services/dataLayer';
 
 const disbursementData = [
   { month: 'Jul', amount: 12500000 },
@@ -64,6 +65,32 @@ const quickActions = [
 ];
 
 export default function Dashboard() {
+  const [liveData, setLiveData] = useState({
+    totalLoans: 0,
+    portfolioValue: 0,
+    activeBorrowers: 0,
+    auditLogs: 0,
+    chainVerified: true,
+  });
+
+  useEffect(() => {
+    // Load live data from data layer
+    const loans = dataLayer.getLoans();
+    const borrowers = dataLayer.getBorrowers();
+    const logs = dataLayer.getAuditLogs();
+    
+    const activeLoans = loans.filter(l => ['Active', 'Disbursed', 'Overdue', 'In Duplum'].includes(l.status));
+    const portfolioValue = activeLoans.reduce((sum, l) => sum + l.remaining, 0);
+    
+    setLiveData({
+      totalLoans: activeLoans.length,
+      portfolioValue,
+      activeBorrowers: borrowers.filter(b => b.status === 'Active').length,
+      auditLogs: logs.length,
+      chainVerified: dataLayer.verifyAuditChain(),
+    });
+  }, []);
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -74,7 +101,12 @@ export default function Dashboard() {
         </div>
         <div className="flex items-center gap-2 text-sm text-gray-500">
           <Clock size={14} />
-          Last updated: 2 minutes ago
+          <span>Live data · {liveData.auditLogs} audit entries</span>
+          {liveData.chainVerified && (
+            <span className="flex items-center gap-1 text-xs text-accent-600 bg-accent-50 px-2 py-0.5 rounded-full">
+              <CheckCircle2 size={10} /> Chain verified
+            </span>
+          )}
         </div>
       </div>
 

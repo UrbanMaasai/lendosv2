@@ -98,6 +98,15 @@ export default function DashboardLayout() {
               <p className="text-[10px] text-gray-400 mt-1">Uptime: 99.97% · af-south-1</p>
             </div>
 
+            {/* Borrower Portal Link */}
+            <button
+              onClick={() => navigate('/borrower')}
+              className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-primary-600 hover:bg-primary-50 w-full"
+            >
+              <Users size={18} />
+              Test Borrower Journey
+            </button>
+
             <button
               onClick={() => navigate('/')}
               className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900 w-full"
