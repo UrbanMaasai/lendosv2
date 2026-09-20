@@ -247,15 +247,58 @@ if (!isPermittedHours()) {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-gray-100 py-8 px-4">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <div className="w-7 h-7 bg-gradient-to-br from-primary-600 to-primary-800 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-xs">L</span>
+      <footer className="border-t border-gray-100 py-12 px-4 bg-gray-50">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+            <div>
+              <div className="flex items-center gap-2 mb-4">
+                <div className="w-8 h-8 bg-gradient-to-br from-primary-600 to-primary-800 rounded-lg flex items-center justify-center">
+                  <span className="text-white font-bold text-sm">L</span>
+                </div>
+                <span className="font-bold text-lg text-gray-900">LendingOS</span>
+              </div>
+              <p className="text-sm text-gray-600">
+                White-label, compliance-first lending infrastructure for licensed Digital Credit Providers in Kenya and East Africa.
+              </p>
             </div>
-            <span className="font-semibold text-gray-900">LendingOS</span>
+            <div>
+              <h4 className="font-semibold text-gray-900 mb-3">Platform</h4>
+              <ul className="space-y-2 text-sm text-gray-600">
+                <li><button onClick={() => navigate('/app')} className="hover:text-primary-600">Dashboard</button></li>
+                <li><button onClick={() => navigate('/pricing')} className="hover:text-primary-600">Pricing</button></li>
+                <li><a href="#features" className="hover:text-primary-600">Features</a></li>
+                <li><a href="#compliance" className="hover:text-primary-600">Compliance</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-semibold text-gray-900 mb-3">Resources</h4>
+              <ul className="space-y-2 text-sm text-gray-600">
+                <li><a href="#" className="hover:text-primary-600">Documentation</a></li>
+                <li><a href="#" className="hover:text-primary-600">API Reference</a></li>
+                <li><a href="#" className="hover:text-primary-600">30-Day Onboarding Guide</a></li>
+                <li><a href="#" className="hover:text-primary-600">Compliance Handbook</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-semibold text-gray-900 mb-3">Contact</h4>
+              <ul className="space-y-2 text-sm text-gray-600">
+                <li>hello@lendingos.co.ke</li>
+                <li>+254 700 000 000</li>
+                <li>Nairobi, Kenya</li>
+                <li className="pt-2">
+                  <span className="text-xs bg-accent-50 text-accent-700 px-2 py-1 rounded-full">CBK Licensed</span>
+                </li>
+              </ul>
+            </div>
           </div>
-          <p className="text-sm text-gray-500">© 2026 LendingOS. Compliance-first lending infrastructure for East Africa.</p>
+          <div className="border-t border-gray-200 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p className="text-sm text-gray-500">© 2026 LendingOS. All rights reserved.</p>
+            <div className="flex items-center gap-4 text-sm text-gray-500">
+              <a href="#" className="hover:text-primary-600">Privacy Policy</a>
+              <a href="#" className="hover:text-primary-600">Terms of Service</a>
+              <a href="#" className="hover:text-primary-600">Data Protection</a>
+            </div>
+          </div>
         </div>
       </footer>
     </div>

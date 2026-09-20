@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Building2, Plus, MoreVertical, Globe, Users, CheckCircle2, AlertCircle, Clock } from 'lucide-react';
+import { Building2, Plus, MoreVertical, Globe, Users, CheckCircle2, AlertCircle, Clock, TrendingUp, DollarSign, Activity } from 'lucide-react';
 
 const tenants = [
   { id: 1, name: 'PesaFlash', subdomain: 'pesaflash', tier: 'Growth', loans: 3847, status: 'Active', users: 12, created: '2026-01-15' },
@@ -37,7 +37,7 @@ export default function Tenants() {
           { label: 'Sandbox', value: '1', icon: Clock },
           { label: 'Total Active Loans', value: '15,900', icon: Users },
         ].map((stat) => (
-          <div key={stat.label} className="bg-white rounded-xl p-4 border border-gray-100">
+          <div key={stat.label} className="bg-white rounded-xl p-4 border border-gray-100 hover:shadow-md transition-shadow">
             <div className="flex items-center gap-3">
               <div className="w-9 h-9 bg-primary-50 rounded-lg flex items-center justify-center">
                 <stat.icon size={18} className="text-primary-600" />
@@ -49,6 +49,31 @@ export default function Tenants() {
             </div>
           </div>
         ))}
+      </div>
+
+      {/* Platform Revenue */}
+      <div className="bg-gradient-to-r from-primary-50 to-accent-50 rounded-xl p-6 border border-primary-100">
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="font-semibold text-gray-900">Platform Revenue (This Month)</h3>
+          <span className="text-xs bg-white text-accent-700 px-2 py-1 rounded-full font-medium">+23% MoM</span>
+        </div>
+        <div className="grid sm:grid-cols-4 gap-4">
+          {[
+            { label: 'Subscriptions', value: 'KES 485K', pct: 50 },
+            { label: 'Usage Fees', value: 'KES 291K', pct: 30 },
+            { label: 'Professional Services', value: 'KES 146K', pct: 15 },
+            { label: 'Premium Modules', value: 'KES 49K', pct: 5 },
+          ].map((rev) => (
+            <div key={rev.label} className="bg-white rounded-lg p-4">
+              <p className="text-lg font-bold text-gray-900">{rev.value}</p>
+              <p className="text-xs text-gray-500 mb-2">{rev.label}</p>
+              <div className="w-full h-1.5 bg-gray-200 rounded-full overflow-hidden">
+                <div className="h-full bg-primary-500 rounded-full" style={{ width: `${rev.pct}%` }}></div>
+              </div>
+              <p className="text-xs text-gray-400 mt-1">{rev.pct}% of total</p>
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* Filter */}

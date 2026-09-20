@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { PhoneCall, AlertTriangle, Clock, CheckCircle2, MessageSquare, Shield, Users } from 'lucide-react';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { PhoneCall, AlertTriangle, Clock, CheckCircle2, MessageSquare, Shield, Users, Calendar, TrendingDown, UserCheck, Zap } from 'lucide-react';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line, Legend } from 'recharts';
 
 const delinquencyData = [
   { bucket: '1-30 DPD', count: 578, amount: 28400000 },
@@ -28,7 +28,7 @@ const conductRules = [
 ];
 
 export default function Collections() {
-  const [tab, setTab] = useState<'queue' | 'conduct'>('queue');
+  const [tab, setTab] = useState<'queue' | 'timeline' | 'conduct'>('queue');
 
   return (
     <div className="space-y-6">
@@ -72,22 +72,28 @@ export default function Collections() {
       </div>
 
       {/* Tabs */}
-      <div className="flex items-center gap-1 bg-gray-100 rounded-lg p-1 w-fit">
+      <div className="flex items-center gap-1 bg-gray-100 rounded-lg p-1 w-fit overflow-x-auto">
         <button
           onClick={() => setTab('queue')}
-          className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${tab === 'queue' ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-600'}`}
+          className={`px-4 py-2 rounded-md text-sm font-medium transition-colors whitespace-nowrap ${tab === 'queue' ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-600'}`}
         >
           Collections Queue
         </button>
         <button
+          onClick={() => setTab('timeline')}
+          className={`px-4 py-2 rounded-md text-sm font-medium transition-colors whitespace-nowrap ${tab === 'timeline' ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-600'}`}
+        >
+          Workflow Timeline
+        </button>
+        <button
           onClick={() => setTab('conduct')}
-          className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${tab === 'conduct' ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-600'}`}
+          className={`px-4 py-2 rounded-md text-sm font-medium transition-colors whitespace-nowrap ${tab === 'conduct' ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-600'}`}
         >
           Conduct Rules
         </button>
       </div>
 
-      {tab === 'queue' ? (
+      {tab === 'queue' && (
         <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full">
@@ -134,7 +140,122 @@ export default function Collections() {
             </table>
           </div>
         </div>
-      ) : (
+      )}
+
+      {tab === 'timeline' && (
+        <div className="bg-white rounded-xl p-6 border border-gray-100">
+          <h3 className="font-semibold text-gray-900 mb-4">Collections Workflow Timeline</h3>
+          <p className="text-sm text-gray-500 mb-6">State-dependent conduct rules by delinquency bucket</p>
+          
+          <div className="space-y-6">
+            {/* Early Delinquency */}
+            <div className="border-l-4 border-warning-400 pl-4">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="text-sm font-semibold text-gray-900">Early Delinquency (1-30 DPD)</span>
+                <span className="text-xs bg-warning-50 text-warning-700 px-2 py-0.5 rounded-full">578 cases</span>
+              </div>
+              <div className="grid sm:grid-cols-2 gap-3">
+                <div className="bg-gray-50 rounded-lg p-3">
+                  <p className="text-xs font-medium text-gray-700 mb-1">Tone</p>
+                  <p className="text-sm text-gray-600">Educational/Reminder</p>
+                </div>
+                <div className="bg-gray-50 rounded-lg p-3">
+                  <p className="text-xs font-medium text-gray-700 mb-1">Focus</p>
+                  <p className="text-sm text-gray-600">Strong PTP capture emphasis</p>
+                </div>
+                <div className="bg-gray-50 rounded-lg p-3">
+                  <p className="text-xs font-medium text-gray-700 mb-1">Actions</p>
+                  <p className="text-sm text-gray-600">SMS → Email → Soft call</p>
+                </div>
+                <div className="bg-gray-50 rounded-lg p-3">
+                  <p className="text-xs font-medium text-gray-700 mb-1">Contact Limit</p>
+                  <p className="text-sm text-gray-600">Max 3/day, 07:00-20:00 only</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Mild Delinquency */}
+            <div className="border-l-4 border-orange-400 pl-4">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="text-sm font-semibold text-gray-900">Mild Delinquency (31-60 DPD)</span>
+                <span className="text-xs bg-orange-50 text-orange-700 px-2 py-0.5 rounded-full">312 cases</span>
+              </div>
+              <div className="grid sm:grid-cols-2 gap-3">
+                <div className="bg-gray-50 rounded-lg p-3">
+                  <p className="text-xs font-medium text-gray-700 mb-1">Tone</p>
+                  <p className="text-sm text-gray-600">Firmer but professional</p>
+                </div>
+                <div className="bg-gray-50 rounded-lg p-3">
+                  <p className="text-xs font-medium text-gray-700 mb-1">Focus</p>
+                  <p className="text-sm text-gray-600">Structured repayment options</p>
+                </div>
+                <div className="bg-gray-50 rounded-lg p-3">
+                  <p className="text-xs font-medium text-gray-700 mb-1">Actions</p>
+                  <p className="text-sm text-gray-600">Call → Restructure offer → PTP</p>
+                </div>
+                <div className="bg-gray-50 rounded-lg p-3">
+                  <p className="text-xs font-medium text-gray-700 mb-1">Escalation</p>
+                  <p className="text-sm text-gray-600">Agent-assisted, supervisor review</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Serious Delinquency */}
+            <div className="border-l-4 border-danger-400 pl-4">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="text-sm font-semibold text-gray-900">Serious Delinquency (61-90 DPD)</span>
+                <span className="text-xs bg-danger-50 text-danger-700 px-2 py-0.5 rounded-full">116 cases</span>
+              </div>
+              <div className="grid sm:grid-cols-2 gap-3">
+                <div className="bg-gray-50 rounded-lg p-3">
+                  <p className="text-xs font-medium text-gray-700 mb-1">Tone</p>
+                  <p className="text-sm text-gray-600">Formal demand language</p>
+                </div>
+                <div className="bg-gray-50 rounded-lg p-3">
+                  <p className="text-xs font-medium text-gray-700 mb-1">Focus</p>
+                  <p className="text-sm text-gray-600">Restructure/hardship path prominent</p>
+                </div>
+                <div className="bg-gray-50 rounded-lg p-3">
+                  <p className="text-xs font-medium text-gray-700 mb-1">Actions</p>
+                  <p className="text-sm text-gray-600">Formal demand → Legal review</p>
+                </div>
+                <div className="bg-gray-50 rounded-lg p-3">
+                  <p className="text-xs font-medium text-gray-700 mb-1">Escalation</p>
+                  <p className="text-sm text-gray-600">Credit lead approval required</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Severe Delinquency */}
+            <div className="border-l-4 border-red-700 pl-4">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="text-sm font-semibold text-gray-900">Severe Delinquency (90+ DPD)</span>
+                <span className="text-xs bg-red-100 text-red-800 px-2 py-0.5 rounded-full">74 cases</span>
+              </div>
+              <div className="grid sm:grid-cols-2 gap-3">
+                <div className="bg-gray-50 rounded-lg p-3">
+                  <p className="text-xs font-medium text-gray-700 mb-1">Tone</p>
+                  <p className="text-sm text-gray-600">Legal proceedings only</p>
+                </div>
+                <div className="bg-gray-50 rounded-lg p-3">
+                  <p className="text-xs font-medium text-gray-700 mb-1">Focus</p>
+                  <p className="text-sm text-gray-600">Negative listing workflow</p>
+                </div>
+                <div className="bg-gray-50 rounded-lg p-3">
+                  <p className="text-xs font-medium text-gray-700 mb-1">Pre-req</p>
+                  <p className="text-sm text-gray-600">Mandatory pre-notification + dispute window</p>
+                </div>
+                <div className="bg-gray-50 rounded-lg p-3">
+                  <p className="text-xs font-medium text-gray-700 mb-1">Escalation</p>
+                  <p className="text-sm text-gray-600">Legal team, compliance review</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {tab === 'conduct' && (
         <div className="space-y-3">
           {conductRules.map((rule) => (
             <div key={rule.code} className="bg-white rounded-xl p-4 border border-gray-100 flex items-start gap-4">

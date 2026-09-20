@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Plug, CheckCircle2, AlertCircle, Clock, Wifi, WifiOff, RefreshCw, ExternalLink, Shield } from 'lucide-react';
+import { Plug, CheckCircle2, AlertCircle, Clock, Wifi, WifiOff, RefreshCw, ExternalLink, Shield, Activity, Zap, TrendingUp } from 'lucide-react';
 
 const integrations = [
   {
@@ -147,13 +147,49 @@ export default function Integrations() {
         </div>
       </div>
 
+      {/* Connection Status Monitor */}
+      <div className="bg-white rounded-xl p-6 border border-gray-100">
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center gap-2">
+            <Activity size={18} className="text-primary-600" />
+            <h3 className="font-semibold text-gray-900">Connection Status Monitor</h3>
+          </div>
+          <div className="flex items-center gap-2 text-xs">
+            <div className="w-2 h-2 bg-accent-500 rounded-full animate-pulse"></div>
+            <span className="text-accent-600 font-medium">All Systems Operational</span>
+          </div>
+        </div>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {[
+            { name: 'M-Pesa C2B', latency: '45ms', uptime: '99.8%', status: 'healthy', icon: '📱' },
+            { name: 'M-Pesa B2C', latency: '52ms', uptime: '99.6%', status: 'healthy', icon: '💸' },
+            { name: 'CRB Metropol', latency: '1.2s', uptime: '99.9%', status: 'healthy', icon: '📊' },
+            { name: 'SMS Gateway', latency: '2.3s', uptime: '98.7%', status: 'warning', icon: '💬' },
+          ].map((conn) => (
+            <div key={conn.name} className="bg-gray-50 rounded-lg p-4">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-2xl">{conn.icon}</span>
+                <div className={`w-2 h-2 rounded-full ${
+                  conn.status === 'healthy' ? 'bg-accent-500' : 'bg-warning-500'
+                }`}></div>
+              </div>
+              <p className="text-sm font-medium text-gray-900">{conn.name}</p>
+              <div className="flex items-center justify-between mt-2 text-xs text-gray-500">
+                <span>Latency: {conn.latency}</span>
+                <span>Uptime: {conn.uptime}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
       {/* Integration Cards */}
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
         {integrations.map((integration) => (
           <div
             key={integration.id}
             onClick={() => setSelected(integration)}
-            className="bg-white rounded-xl p-5 border border-gray-100 hover:border-primary-200 hover:shadow-md transition-all cursor-pointer"
+            className="bg-white rounded-xl p-5 border border-gray-100 hover:border-primary-200 hover:shadow-md transition-all cursor-pointer group"
           >
             <div className="flex items-start justify-between mb-3">
               <div className="flex items-center gap-3">

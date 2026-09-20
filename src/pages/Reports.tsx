@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { BarChart3, Download, TrendingUp, AlertTriangle, DollarSign } from 'lucide-react';
+import { BarChart3, Download, TrendingUp, AlertTriangle, DollarSign, Calendar, Filter, Activity } from 'lucide-react';
 import { LineChart, Line, AreaChart, Area, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 
 const parData = [
@@ -53,6 +53,35 @@ export default function Reports() {
         <button className="flex items-center gap-2 bg-primary-600 text-white px-4 py-2.5 rounded-lg text-sm font-medium hover:bg-primary-700 transition-colors">
           <Download size={16} /> Export Report
         </button>
+      </div>
+
+      {/* Date Range & Filters */}
+      <div className="flex flex-col sm:flex-row gap-3">
+        <div className="flex items-center gap-2 bg-white rounded-lg px-3 py-2 border border-gray-200">
+          <Calendar size={16} className="text-gray-400" />
+          <select className="bg-transparent text-sm outline-none text-gray-700">
+            <option>Last 30 days</option>
+            <option>Last 90 days</option>
+            <option>Last 6 months</option>
+            <option>Year to date</option>
+            <option>Custom range</option>
+          </select>
+        </div>
+        <div className="flex items-center gap-2 bg-white rounded-lg px-3 py-2 border border-gray-200">
+          <Filter size={16} className="text-gray-400" />
+          <select className="bg-transparent text-sm outline-none text-gray-700">
+            <option>All Tenants</option>
+            <option>PesaFlash</option>
+            <option>QuickCredit SACCO</option>
+            <option>M-Kopo Finance</option>
+          </select>
+        </div>
+        <div className="flex-1"></div>
+        <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1 text-xs bg-accent-50 text-accent-700 px-2 py-1 rounded-full">
+            <Activity size={10} /> Live Data
+          </div>
+        </div>
       </div>
 
       {/* Tabs */}

@@ -1,8 +1,10 @@
+import { useState } from 'react';
 import {
   TrendingUp, TrendingDown, Users, FileText, AlertTriangle,
-  DollarSign, Clock, CheckCircle2, ArrowUpRight
+  DollarSign, Clock, CheckCircle2, ArrowUpRight, Activity,
+  Zap, Shield, PhoneCall, Bell
 } from 'lucide-react';
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, PieChart, Pie, Cell } from 'recharts';
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, PieChart, Pie, Cell, LineChart, Line } from 'recharts';
 
 const disbursementData = [
   { month: 'Jul', amount: 12500000 },
@@ -40,10 +42,25 @@ const recentLoans = [
 ];
 
 const kpis = [
-  { label: 'Active Loans', value: '3,847', change: '+12.5%', up: true, icon: FileText },
-  { label: 'Portfolio Value', value: 'KES 142.8M', change: '+8.3%', up: true, icon: DollarSign },
-  { label: 'PAR 30', value: '4.2%', change: '-0.8%', up: true, icon: AlertTriangle },
-  { label: 'Disbursements Today', value: 'KES 2.4M', change: '+15.2%', up: true, icon: TrendingUp },
+  { label: 'Active Loans', value: '3,847', change: '+12.5%', up: true, icon: FileText, sparkline: [20, 25, 23, 28, 32, 35, 38] },
+  { label: 'Portfolio Value', value: 'KES 142.8M', change: '+8.3%', up: true, icon: DollarSign, sparkline: [100, 110, 115, 120, 130, 138, 142] },
+  { label: 'PAR 30', value: '4.2%', change: '-0.8%', up: true, icon: AlertTriangle, sparkline: [5.5, 5.2, 4.8, 4.5, 4.3, 4.2, 4.2] },
+  { label: 'Disbursements Today', value: 'KES 2.4M', change: '+15.2%', up: true, icon: TrendingUp, sparkline: [1.2, 1.5, 1.8, 2.0, 2.2, 2.3, 2.4] },
+];
+
+const liveActivities = [
+  { id: 1, type: 'disbursement', message: 'KES 15,000 disbursed to James Mwangi', time: '2 min ago', icon: DollarSign, color: 'text-accent-600 bg-accent-50' },
+  { id: 2, type: 'repayment', message: 'KES 8,500 received from Grace Wanjiku', time: '5 min ago', icon: CheckCircle2, color: 'text-primary-600 bg-primary-50' },
+  { id: 3, type: 'application', message: 'New loan application from Peter Ochieng', time: '12 min ago', icon: FileText, color: 'text-purple-600 bg-purple-50' },
+  { id: 4, type: 'compliance', message: 'In duplum check passed for LN-2026-0847', time: '15 min ago', icon: Shield, color: 'text-accent-600 bg-accent-50' },
+  { id: 5, type: 'collection', message: 'PTP logged for David Kiprop (Jun 20)', time: '23 min ago', icon: PhoneCall, color: 'text-warning-600 bg-warning-50' },
+];
+
+const quickActions = [
+  { label: 'New Loan', icon: FileText, action: 'Create new loan application' },
+  { label: 'Disburse', icon: DollarSign, action: 'Process disbursement' },
+  { label: 'View Reports', icon: TrendingUp, action: 'Generate reports' },
+  { label: 'Compliance', icon: Shield, action: 'Check compliance status' },
 ];
 
 export default function Dashboard() {
@@ -61,12 +78,12 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {/* KPI Cards */}
+      {/* KPI Cards with Sparklines */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {kpis.map((kpi) => (
-          <div key={kpi.label} className="bg-white rounded-xl p-5 border border-gray-100 hover:shadow-md transition-shadow">
+          <div key={kpi.label} className="bg-white rounded-xl p-5 border border-gray-100 hover:shadow-md transition-all hover:border-primary-200 group cursor-pointer">
             <div className="flex items-center justify-between mb-3">
-              <div className="w-9 h-9 bg-primary-50 rounded-lg flex items-center justify-center">
+              <div className="w-9 h-9 bg-primary-50 rounded-lg flex items-center justify-center group-hover:bg-primary-100 transition-colors">
                 <kpi.icon size={18} className="text-primary-600" />
               </div>
               <span className={`flex items-center gap-1 text-xs font-medium ${kpi.up ? 'text-accent-600' : 'text-danger-600'}`}>
@@ -76,8 +93,35 @@ export default function Dashboard() {
             </div>
             <p className="text-2xl font-bold text-gray-900">{kpi.value}</p>
             <p className="text-sm text-gray-500 mt-1">{kpi.label}</p>
+            {/* Sparkline */}
+            <div className="mt-3 h-8">
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart data={kpi.sparkline.map((v, i) => ({ value: v, index: i }))}>
+                  <Line type="monotone" dataKey="value" stroke={kpi.up ? '#22c55e' : '#ef4444'} strokeWidth={2} dot={false} />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
           </div>
         ))}
+      </div>
+
+      {/* Quick Actions */}
+      <div className="bg-white rounded-xl p-5 border border-gray-100">
+        <h3 className="font-semibold text-gray-900 mb-4">Quick Actions</h3>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          {quickActions.map((action) => (
+            <button
+              key={action.label}
+              className="flex flex-col items-center gap-2 p-4 rounded-lg border border-gray-200 hover:border-primary-300 hover:bg-primary-50 transition-all group"
+              title={action.action}
+            >
+              <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center group-hover:bg-primary-100 transition-colors">
+                <action.icon size={20} className="text-gray-600 group-hover:text-primary-600 transition-colors" />
+              </div>
+              <span className="text-sm font-medium text-gray-700 group-hover:text-primary-700">{action.label}</span>
+            </button>
+          ))}
+        </div>
       </div>
 
       {/* Charts Row */}
@@ -133,6 +177,30 @@ export default function Dashboard() {
               </div>
             ))}
           </div>
+        </div>
+      </div>
+
+      {/* Live Activity Feed */}
+      <div className="bg-white rounded-xl p-6 border border-gray-100">
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center gap-2">
+            <div className="w-2 h-2 bg-accent-500 rounded-full animate-pulse"></div>
+            <h3 className="font-semibold text-gray-900">Live Activity</h3>
+          </div>
+          <button className="text-xs text-primary-600 hover:text-primary-700 font-medium">View All</button>
+        </div>
+        <div className="space-y-3">
+          {liveActivities.map((activity) => (
+            <div key={activity.id} className="flex items-start gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
+              <div className={`w-8 h-8 ${activity.color.split(' ')[1]} rounded-lg flex items-center justify-center flex-shrink-0`}>
+                <activity.icon size={14} className={activity.color.split(' ')[0]} />
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm text-gray-900">{activity.message}</p>
+                <p className="text-xs text-gray-500 mt-0.5">{activity.time}</p>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
 

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { FileText, Search, Filter, Download, Eye, AlertTriangle, CheckCircle2, Clock, DollarSign } from 'lucide-react';
+import { FileText, Search, Filter, Download, Eye, AlertTriangle, CheckCircle2, Clock, DollarSign, TrendingUp, Activity, Zap } from 'lucide-react';
 
 const loans = [
   { id: 'LN-2026-0847', borrower: 'James Mwangi', product: 'Salary Advance', principal: 15000, interest: 1350, totalDue: 16350, paid: 8175, remaining: 8175, status: 'Active', dueDate: '2026-07-15', disbursed: '2026-06-15', inDuplum: false },
@@ -41,7 +41,7 @@ export default function Loans() {
           { label: 'In Duplum Reached', value: '23', sub: 'Further charges blocked', icon: AlertTriangle },
           { label: 'Pending Review', value: '156', sub: 'Avg wait: 2.3 hours', icon: Clock },
         ].map((stat) => (
-          <div key={stat.label} className="bg-white rounded-xl p-4 border border-gray-100">
+          <div key={stat.label} className="bg-white rounded-xl p-4 border border-gray-100 hover:shadow-md transition-shadow">
             <div className="flex items-center justify-between mb-2">
               <stat.icon size={18} className="text-primary-600" />
             </div>
@@ -49,6 +49,32 @@ export default function Loans() {
             <p className="text-xs text-gray-500 mt-1">{stat.sub}</p>
           </div>
         ))}
+      </div>
+
+      {/* Loan Lifecycle */}
+      <div className="bg-white rounded-xl p-6 border border-gray-100">
+        <h3 className="font-semibold text-gray-900 mb-4">Loan Lifecycle Pipeline</h3>
+        <div className="flex flex-wrap items-center gap-2">
+          {[
+            { stage: 'Application', count: 234, color: 'bg-gray-100 text-gray-700' },
+            { stage: 'KYC Review', count: 89, color: 'bg-warning-50 text-warning-700' },
+            { stage: 'Decision', count: 156, color: 'bg-primary-50 text-primary-700' },
+            { stage: 'Cooling-Off', count: 42, color: 'bg-purple-50 text-purple-700' },
+            { stage: 'Approved', count: 67, color: 'bg-accent-50 text-accent-700' },
+            { stage: 'Disbursed', count: 47, color: 'bg-accent-100 text-accent-800' },
+            { stage: 'Active', count: 3847, color: 'bg-primary-100 text-primary-800' },
+          ].map((stage, index) => (
+            <div key={stage.stage} className="flex items-center gap-2">
+              <div className={`${stage.color} px-3 py-2 rounded-lg text-center min-w-[80px]`}>
+                <p className="text-lg font-bold">{stage.count.toLocaleString()}</p>
+                <p className="text-xs font-medium">{stage.stage}</p>
+              </div>
+              {index < 6 && (
+                <div className="text-gray-300 text-xl">→</div>
+              )}
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* Filters */}

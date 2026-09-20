@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Shield, CheckCircle2, AlertTriangle, Clock, FileText, Lock, Eye, AlertCircle } from 'lucide-react';
+import { Shield, CheckCircle2, AlertTriangle, Clock, FileText, Lock, Eye, AlertCircle, Activity, Zap, TrendingUp } from 'lucide-react';
 
 const auditLogs = [
   { id: 1, timestamp: '2026-06-15 14:32:01', user: 'system', action: 'IN_DUPLUM_TRIGGERED', entity: 'LN-2026-0840', details: 'Total recovered = 2× principal. Further charges blocked.', hash: 'a7f3c9...' },
@@ -66,6 +66,49 @@ export default function Compliance() {
               <item.icon size={16} className="text-primary-600 mb-1" />
               <p className="text-lg font-bold text-gray-900">{item.value}</p>
               <p className="text-xs text-gray-500">{item.label}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Real-Time Monitoring */}
+      <div className="bg-white rounded-xl p-6 border border-gray-100">
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center gap-2">
+            <Activity size={18} className="text-primary-600" />
+            <h3 className="font-semibold text-gray-900">Real-Time Compliance Monitoring</h3>
+          </div>
+          <div className="flex items-center gap-2 text-xs">
+            <div className="w-2 h-2 bg-accent-500 rounded-full animate-pulse"></div>
+            <span className="text-accent-600 font-medium">Live</span>
+          </div>
+        </div>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {[
+            { label: 'In Duplum Checks', current: 15847, total: 15847, status: 'pass', icon: Lock },
+            { label: 'Consent Validations', current: 12680, total: 12847, status: 'warning', icon: Shield },
+            { label: 'Collections Conduct', current: 45230, total: 45230, status: 'pass', icon: Zap },
+            { label: 'Contact Hours', current: 45230, total: 45230, status: 'pass', icon: Clock },
+          ].map((monitor) => (
+            <div key={monitor.label} className="bg-gray-50 rounded-lg p-4">
+              <div className="flex items-center justify-between mb-2">
+                <monitor.icon size={16} className={monitor.status === 'pass' ? 'text-accent-600' : 'text-warning-600'} />
+                <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${
+                  monitor.status === 'pass' ? 'bg-accent-50 text-accent-700' : 'bg-warning-50 text-warning-700'
+                }`}>
+                  {monitor.status === 'pass' ? '✓' : '⚠'}
+                </span>
+              </div>
+              <p className="text-sm font-medium text-gray-900">{monitor.label}</p>
+              <p className="text-xs text-gray-500 mt-1">
+                {monitor.current.toLocaleString()} / {monitor.total.toLocaleString()}
+              </p>
+              <div className="mt-2 w-full h-1.5 bg-gray-200 rounded-full overflow-hidden">
+                <div
+                  className={`h-full rounded-full ${monitor.status === 'pass' ? 'bg-accent-500' : 'bg-warning-500'}`}
+                  style={{ width: `${(monitor.current / monitor.total) * 100}%` }}
+                ></div>
+              </div>
             </div>
           ))}
         </div>

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Users, Search, Filter, UserCheck, UserX, Clock, AlertTriangle } from 'lucide-react';
+import { Users, Search, Filter, UserCheck, UserX, Clock, AlertTriangle, Shield, TrendingUp, Activity } from 'lucide-react';
 
 const borrowers = [
   { id: 1, name: 'James Mwangi', phone: '+254712***847', idVerified: true, creditScore: 680, loans: 3, status: 'Active', registered: '2026-01-15', consent: true },
@@ -40,7 +40,7 @@ export default function Borrowers() {
           { label: 'Consent Coverage', value: '98.7%', icon: UserCheck, color: 'bg-accent-50 text-accent-600' },
           { label: 'Rejected', value: '1,271', icon: UserX, color: 'bg-danger-50 text-danger-600' },
         ].map((stat) => (
-          <div key={stat.label} className="bg-white rounded-xl p-4 border border-gray-100">
+          <div key={stat.label} className="bg-white rounded-xl p-4 border border-gray-100 hover:shadow-md transition-shadow">
             <div className={`w-8 h-8 ${stat.color.split(' ')[0]} rounded-lg flex items-center justify-center mb-2`}>
               <stat.icon size={16} className={stat.color.split(' ')[1]} />
             </div>
@@ -48,6 +48,31 @@ export default function Borrowers() {
             <p className="text-xs text-gray-500">{stat.label}</p>
           </div>
         ))}
+      </div>
+
+      {/* Borrower Segmentation */}
+      <div className="bg-white rounded-xl p-6 border border-gray-100">
+        <h3 className="font-semibold text-gray-900 mb-4">Borrower Segmentation</h3>
+        <div className="grid sm:grid-cols-4 gap-4">
+          {[
+            { segment: 'Prime', count: 4521, pct: 35, color: 'bg-accent-500', desc: 'Score 700+, low risk' },
+            { segment: 'Near-Prime', count: 5139, pct: 40, color: 'bg-primary-500', desc: 'Score 500-699, moderate risk' },
+            { segment: 'Sub-Prime', count: 2569, pct: 20, color: 'bg-warning-500', desc: 'Score 300-499, higher risk' },
+            { segment: 'Thin-File', count: 618, pct: 5, color: 'bg-gray-400', desc: 'Limited credit history' },
+          ].map((seg) => (
+            <div key={seg.segment} className="bg-gray-50 rounded-lg p-4">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-sm font-semibold text-gray-900">{seg.segment}</span>
+                <span className="text-xs text-gray-500">{seg.pct}%</span>
+              </div>
+              <p className="text-2xl font-bold text-gray-900">{seg.count.toLocaleString()}</p>
+              <p className="text-xs text-gray-500 mt-1">{seg.desc}</p>
+              <div className="mt-2 w-full h-1.5 bg-gray-200 rounded-full overflow-hidden">
+                <div className={`h-full rounded-full ${seg.color}`} style={{ width: `${seg.pct}%` }}></div>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* Filters */}

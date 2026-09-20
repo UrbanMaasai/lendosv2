@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Package, Plus, Settings, Eye, Copy, CheckCircle2, AlertTriangle } from 'lucide-react';
+import { Package, Plus, Settings, Eye, Copy, CheckCircle2, AlertTriangle, TrendingUp, Users, DollarSign, Zap } from 'lucide-react';
 
 const products = [
   {
@@ -44,22 +44,44 @@ export default function Products() {
         </button>
       </div>
 
+      {/* Product Performance Overview */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        {[
+          { label: 'Active Products', value: '5', icon: Package, color: 'bg-primary-50 text-primary-600' },
+          { label: 'Total Active Loans', value: '3,946', icon: Users, color: 'bg-accent-50 text-accent-600' },
+          { label: 'Avg Approval Rate', value: '58.3%', icon: CheckCircle2, color: 'bg-purple-50 text-purple-600' },
+          { label: 'Monthly Revenue', value: 'KES 41.2M', icon: DollarSign, color: 'bg-warning-50 text-warning-600' },
+        ].map((stat) => (
+          <div key={stat.label} className="bg-white rounded-xl p-4 border border-gray-100">
+            <div className={`w-8 h-8 ${stat.color.split(' ')[0]} rounded-lg flex items-center justify-center mb-2`}>
+              <stat.icon size={16} className={stat.color.split(' ')[1]} />
+            </div>
+            <p className="text-xl font-bold text-gray-900">{stat.value}</p>
+            <p className="text-xs text-gray-500">{stat.label}</p>
+          </div>
+        ))}
+      </div>
+
       {/* Templates */}
       <div className="bg-gradient-to-r from-primary-50 to-accent-50 rounded-xl p-6 border border-primary-100">
-        <h3 className="font-semibold text-gray-900 mb-2">Starter Templates</h3>
+        <div className="flex items-center justify-between mb-2">
+          <h3 className="font-semibold text-gray-900">Starter Templates</h3>
+          <span className="text-xs bg-white text-primary-700 px-2 py-1 rounded-full font-medium">Quick Start</span>
+        </div>
         <p className="text-sm text-gray-600 mb-4">Pre-built product configurations to get started quickly</p>
         <div className="grid sm:grid-cols-3 gap-3">
           {[
-            { name: 'Salary Advance', desc: 'Conservative, employed borrowers, scorecard + CRB', tag: 'Popular' },
-            { name: 'Micro Personal', desc: 'Balanced, broader retail, flexible eligibility', tag: 'Recommended' },
-            { name: 'First-Time / Thin-File', desc: 'Controlled, limited CRB history, alternative data', tag: 'New' },
+            { name: 'Salary Advance', desc: 'Conservative, employed borrowers, scorecard + CRB', tag: 'Popular', metrics: '68% approval, 3.2% PAR' },
+            { name: 'Micro Personal', desc: 'Balanced, broader retail, flexible eligibility', tag: 'Recommended', metrics: '54% approval, 5.8% PAR' },
+            { name: 'First-Time / Thin-File', desc: 'Controlled, limited CRB history, alternative data', tag: 'New', metrics: '41% approval, 7.2% PAR' },
           ].map((template) => (
-            <div key={template.name} className="bg-white rounded-lg p-4 border border-gray-100 hover:border-primary-200 cursor-pointer transition-colors">
+            <div key={template.name} className="bg-white rounded-lg p-4 border border-gray-100 hover:border-primary-200 cursor-pointer transition-all hover:shadow-md group">
               <div className="flex items-center justify-between mb-2">
                 <span className="font-medium text-sm text-gray-900">{template.name}</span>
                 <span className="text-xs bg-primary-50 text-primary-700 px-2 py-0.5 rounded-full">{template.tag}</span>
               </div>
-              <p className="text-xs text-gray-500">{template.desc}</p>
+              <p className="text-xs text-gray-500 mb-2">{template.desc}</p>
+              <p className="text-xs text-accent-600 font-medium">{template.metrics}</p>
             </div>
           ))}
         </div>
