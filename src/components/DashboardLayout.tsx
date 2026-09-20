@@ -15,12 +15,21 @@ const navItems = [
   { path: '/app', icon: LayoutDashboard, label: 'Dashboard', end: true },
   { path: '/app/tenants', icon: Building2, label: 'Tenants' },
   { path: '/app/products', icon: Package, label: 'Products' },
-  { path: '/app/borrowers', icon: Users, label: 'Borrowers' },
+  { path: '/app/borrowers', icon: Users, label: 'Borrowers', children: [
+    { path: '/app/borrowers/360', label: '360° View' }
+  ]},
   { path: '/app/loans', icon: FileText, label: 'Loans' },
-  { path: '/app/collections', icon: PhoneCall, label: 'Collections' },
-  { path: '/app/compliance', icon: Shield, label: 'Compliance' },
+  { path: '/app/collections', icon: PhoneCall, label: 'Collections', children: [
+    { path: '/app/collections/timeline', label: 'Timeline' }
+  ]},
+  { path: '/app/compliance', icon: Shield, label: 'Compliance', children: [
+    { path: '/app/compliance/audit', label: 'Audit Logs' },
+    { path: '/app/compliance/overrides', label: 'Overrides' }
+  ]},
   { path: '/app/reports', icon: BarChart3, label: 'Reports' },
-  { path: '/app/integrations', icon: Plug, label: 'Integrations' },
+  { path: '/app/integrations', icon: Plug, label: 'Integrations', children: [
+    { path: '/app/integrations/mpesa', label: 'M-Pesa Monitor' }
+  ]},
 ];
 
 export default function DashboardLayout() {
@@ -61,22 +70,43 @@ export default function DashboardLayout() {
 
         <nav className="p-4 space-y-1 overflow-y-auto h-[calc(100vh-4rem)] scrollbar-thin">
           {navItems.map((item) => (
-            <NavLink
-              key={item.path}
-              to={item.path}
-              end={item.end}
-              onClick={() => setSidebarOpen(false)}
-              className={({ isActive }) =>
-                `flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
-                  isActive
-                    ? 'bg-primary-50 text-primary-700'
-                    : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
-                }`
-              }
-            >
-              <item.icon size={18} />
-              {item.label}
-            </NavLink>
+            <div key={item.path}>
+              <NavLink
+                to={item.path}
+                end={item.end}
+                onClick={() => setSidebarOpen(false)}
+                className={({ isActive }) =>
+                  `flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
+                    isActive
+                      ? 'bg-primary-50 text-primary-700'
+                      : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                  }`
+                }
+              >
+                <item.icon size={18} />
+                {item.label}
+              </NavLink>
+              {item.children && location.pathname.startsWith(item.path) && (
+                <div className="ml-8 mt-1 space-y-1">
+                  {item.children.map((child) => (
+                    <NavLink
+                      key={child.path}
+                      to={child.path}
+                      onClick={() => setSidebarOpen(false)}
+                      className={({ isActive }) =>
+                        `block px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+                          isActive
+                            ? 'bg-primary-50 text-primary-700'
+                            : 'text-gray-500 hover:bg-gray-50 hover:text-gray-700'
+                        }`
+                      }
+                    >
+                      {child.label}
+                    </NavLink>
+                  ))}
+                </div>
+              )}
+            </div>
           ))}
 
           <div className="pt-6 mt-6 border-t border-gray-100 space-y-3">

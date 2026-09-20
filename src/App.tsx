@@ -15,6 +15,11 @@ import Integrations from './pages/Integrations';
 import BorrowerPortal from './pages/BorrowerPortal';
 import MobileBorrowerApp from './pages/MobileBorrowerApp';
 import APIDocumentation from './pages/APIDocumentation';
+import AuditLogExplorer from './pages/AuditLogExplorer';
+import Borrower360View from './pages/Borrower360View';
+import MPesaMonitor from './pages/MPesaMonitor';
+import CollectionsTimeline from './pages/CollectionsTimeline';
+import OverrideTracker from './pages/OverrideTracker';
 import { seedPlatform } from './services/seedData';
 
 function App() {
@@ -36,11 +41,16 @@ function App() {
           <Route path="tenants" element={<Tenants />} />
           <Route path="products" element={<Products />} />
           <Route path="borrowers" element={<Borrowers />} />
+          <Route path="borrowers/360" element={<Borrower360View />} />
           <Route path="loans" element={<Loans />} />
           <Route path="collections" element={<Collections />} />
+          <Route path="collections/timeline" element={<CollectionsTimeline />} />
           <Route path="compliance" element={<Compliance />} />
+          <Route path="compliance/audit" element={<AuditLogExplorer />} />
+          <Route path="compliance/overrides" element={<OverrideTracker />} />
           <Route path="reports" element={<Reports />} />
           <Route path="integrations" element={<Integrations />} />
+          <Route path="integrations/mpesa" element={<MPesaMonitor />} />
         </Route>
       </Routes>
     </HashRouter>
