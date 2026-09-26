@@ -4,7 +4,7 @@ import {
   LayoutDashboard, Building2, Package, Users, FileText,
   PhoneCall, Shield, BarChart3, Plug, Menu, X, LogOut,
   Bell, Search, ChevronDown, ChevronRight, CheckCircle2, AlertTriangle, Book,
-  Wrench, TrendingUp, AlertOctagon, Webhook
+  Wrench, TrendingUp, AlertOctagon, Webhook, Settings, Code
 } from 'lucide-react';
 import NotificationCenter from './NotificationCenter';
 import GlobalSearch from './GlobalSearch';
@@ -45,6 +45,21 @@ const navItems = [
   { path: '/app/tools', icon: Wrench, label: 'Tools', children: [
     { path: '/app/tools/credit-score', label: 'Credit Score Simulator' },
     { path: '/app/tools/loan-calculator', label: 'Loan Calculator' }
+  ]},
+  { path: '/app/operations', icon: Settings, label: 'Operations', children: [
+    { path: '/app/operations/exports', label: 'Data Export' },
+    { path: '/app/operations/documents', label: 'Documents' },
+    { path: '/app/operations/users', label: 'Users & Roles' },
+    { path: '/app/operations/notifications', label: 'Notifications' },
+    { path: '/app/operations/scheduled-reports', label: 'Scheduled Reports' }
+  ]},
+  { path: '/app/analytics', icon: TrendingUp, label: 'Analytics', children: [
+    { path: '/app/analytics/journey', label: 'Customer Journey' },
+    { path: '/app/analytics/system-health', label: 'System Health' }
+  ]},
+  { path: '/app/developer', icon: Code, label: 'Developer', children: [
+    { path: '/app/developer/api-playground', label: 'API Playground' },
+    { path: '/app/developer/marketplace', label: 'Integrations' }
   ]},
 ];
 

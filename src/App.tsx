@@ -30,6 +30,15 @@ import LoanCalculator from './pages/LoanCalculator';
 import FraudDetectionDashboard from './pages/FraudDetectionDashboard';
 import PortfolioAnalytics from './pages/PortfolioAnalytics';
 import WebhookManagement from './pages/WebhookManagement';
+import DataExportSuite from './pages/DataExportSuite';
+import UserManagement from './pages/UserManagement';
+import SystemHealthDashboard from './pages/SystemHealthDashboard';
+import ApiPlayground from './pages/ApiPlayground';
+import DocumentManagement from './pages/DocumentManagement';
+import NotificationPreferences from './pages/NotificationPreferences';
+import ScheduledReports from './pages/ScheduledReports';
+import CustomerJourneyAnalytics from './pages/CustomerJourneyAnalytics';
+import IntegrationMarketplace from './pages/IntegrationMarketplace';
 import { seedPlatform } from './services/seedData';
 
 function App() {
@@ -72,6 +81,18 @@ function App() {
           <Route path="tools" element={<div />} />
           <Route path="tools/credit-score" element={<CreditScoreSimulator />} />
           <Route path="tools/loan-calculator" element={<LoanCalculator />} />
+          <Route path="operations" element={<div />} />
+          <Route path="operations/exports" element={<DataExportSuite />} />
+          <Route path="operations/documents" element={<DocumentManagement />} />
+          <Route path="operations/users" element={<UserManagement />} />
+          <Route path="operations/notifications" element={<NotificationPreferences />} />
+          <Route path="operations/scheduled-reports" element={<ScheduledReports />} />
+          <Route path="analytics" element={<div />} />
+          <Route path="analytics/journey" element={<CustomerJourneyAnalytics />} />
+          <Route path="analytics/system-health" element={<SystemHealthDashboard />} />
+          <Route path="developer" element={<div />} />
+          <Route path="developer/api-playground" element={<ApiPlayground />} />
+          <Route path="developer/marketplace" element={<IntegrationMarketplace />} />
         </Route>
       </Routes>
     </HashRouter>
