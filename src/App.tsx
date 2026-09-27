@@ -39,6 +39,11 @@ import NotificationPreferences from './pages/NotificationPreferences';
 import ScheduledReports from './pages/ScheduledReports';
 import CustomerJourneyAnalytics from './pages/CustomerJourneyAnalytics';
 import IntegrationMarketplace from './pages/IntegrationMarketplace';
+import WorkflowAutomation from './pages/WorkflowAutomation';
+import RegulatoryCalendar from './pages/RegulatoryCalendar';
+import GeographicAnalytics from './pages/GeographicAnalytics';
+import PerformanceBenchmarking from './pages/PerformanceBenchmarking';
+import PortfolioStressTesting from './pages/PortfolioStressTesting';
 import { seedPlatform } from './services/seedData';
 
 function App() {
@@ -90,9 +95,15 @@ function App() {
           <Route path="analytics" element={<div />} />
           <Route path="analytics/journey" element={<CustomerJourneyAnalytics />} />
           <Route path="analytics/system-health" element={<SystemHealthDashboard />} />
+          <Route path="analytics/geographic" element={<GeographicAnalytics />} />
+          <Route path="analytics/benchmarking" element={<PerformanceBenchmarking />} />
+          <Route path="analytics/stress-testing" element={<PortfolioStressTesting />} />
           <Route path="developer" element={<div />} />
           <Route path="developer/api-playground" element={<ApiPlayground />} />
           <Route path="developer/marketplace" element={<IntegrationMarketplace />} />
+          <Route path="automation" element={<div />} />
+          <Route path="automation/workflows" element={<WorkflowAutomation />} />
+          <Route path="automation/calendar" element={<RegulatoryCalendar />} />
         </Route>
       </Routes>
     </HashRouter>

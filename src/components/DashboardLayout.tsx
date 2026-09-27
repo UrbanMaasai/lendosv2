@@ -55,11 +55,18 @@ const navItems = [
   ]},
   { path: '/app/analytics', icon: TrendingUp, label: 'Analytics', children: [
     { path: '/app/analytics/journey', label: 'Customer Journey' },
-    { path: '/app/analytics/system-health', label: 'System Health' }
+    { path: '/app/analytics/system-health', label: 'System Health' },
+    { path: '/app/analytics/geographic', label: 'Geographic Analytics' },
+    { path: '/app/analytics/benchmarking', label: 'Performance Benchmarking' },
+    { path: '/app/analytics/stress-testing', label: 'Stress Testing' }
   ]},
   { path: '/app/developer', icon: Code, label: 'Developer', children: [
     { path: '/app/developer/api-playground', label: 'API Playground' },
     { path: '/app/developer/marketplace', label: 'Integrations' }
+  ]},
+  { path: '/app/automation', icon: AlertOctagon, label: 'Automation', children: [
+    { path: '/app/automation/workflows', label: 'Workflow Engine' },
+    { path: '/app/automation/calendar', label: 'Regulatory Calendar' }
   ]},
 ];
 
