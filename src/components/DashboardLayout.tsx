@@ -58,7 +58,10 @@ const navItems = [
     { path: '/app/analytics/system-health', label: 'System Health' },
     { path: '/app/analytics/geographic', label: 'Geographic Analytics' },
     { path: '/app/analytics/benchmarking', label: 'Performance Benchmarking' },
-    { path: '/app/analytics/stress-testing', label: 'Stress Testing' }
+    { path: '/app/analytics/stress-testing', label: 'Stress Testing' },
+    { path: '/app/analytics/early-warning', label: 'Early Warning System' },
+    { path: '/app/analytics/audit-trail', label: 'Audit Trail Visualization' },
+    { path: '/app/analytics/tenant-health', label: 'Tenant Health' }
   ]},
   { path: '/app/developer', icon: Code, label: 'Developer', children: [
     { path: '/app/developer/api-playground', label: 'API Playground' },
@@ -68,6 +71,12 @@ const navItems = [
     { path: '/app/automation/workflows', label: 'Workflow Engine' },
     { path: '/app/automation/calendar', label: 'Regulatory Calendar' }
   ]},
+  { path: '/app/tools', icon: Wrench, label: 'Tools', children: [
+    { path: '/app/tools/credit-score', label: 'Credit Score Simulator' },
+    { path: '/app/tools/loan-calculator', label: 'Loan Calculator' },
+    { path: '/app/tools/payment-plan', label: 'Payment Plan Generator' }
+  ]},
+  { path: '/app/compliance/incidents', icon: Shield, label: 'Compliance Incidents' },
 ];
 
 export default function DashboardLayout() {
